@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-User Chat Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="emoji">🔥💬🚀</div>
+    <h1>Multi-User Chat Tester</h1>
+
+    <div class="instructions">
+        <h3>🎯 How to Test Multi-User Chat:</h3>
+        <p>Click the buttons below to open multiple chat windows. Each will create a unique user!</p>
+        <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
+            <li>✅ Each window = Different user</li>
+            <li>✅ Users appear in each other's sidebar</li>
+            <li>✅ Click a user to start chatting</li>
+            <li>✅ Messages are end-to-end encrypted</li>
+        </ul>
+    </div>
+
+    <div class="button-group">
+        <button onclick="openChatWindow('User 1')">👤 Open User 1</button>
+        <button onclick="openChatWindow('User 2')">👤 Open User 2</button>
+        <button onclick="openChatWindow('User 3')">👤 Open User 3</button>
+        <button onclick="openChatWindow('User 4')">👤 Open User 4</button>
+    </div>
+
+    <div class="status" id="status">
+        🚀 Ready to test! Click buttons above to create multiple users.
+    </div>
+
+    <script>
+        let windowCount = 0;
+
+        function openChatWindow(userLabel) {
+            windowCount++;
+            const url = 'http://localhost:5174';
+            const windowName = `chat_${windowCount}_${Date.now()}`;
+            const features = 'width=1200,height=800,scrollbars=yes,resizable=yes';
+
+            const newWindow = window.open(url, windowName, features);
+
+            if (newWindow) {
+                updateStatus(`🎉 Opened ${userLabel} - Go click "Start Secure Chat" in the new window!`);
+
+                // Focus the new window
+                newWindow.focus();
+            } else {
+                updateStatus(`❌ Failed to open window. Please allow popups for this site.`);
+            }
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = message;
+
+            // Reset status after 5 seconds
+            setTimeout(() => {
+                document.getElementById('status').innerHTML = '🚀 Ready to test! Click buttons above to create multiple users.';
+            }, 5000);
+        }
+
+        // Add some fun facts
+        setTimeout(() => {
+            updateStatus('💡 Tip: Each window creates a unique anonymous user with Firebase!');
+        }, 3000);
+    </script>
+</body>
+
+</html>

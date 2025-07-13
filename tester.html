@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Multi-User Chat Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructions li::before {
+            content: "✅";
+            margin-right: 10px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .user-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .user-button:active {
+            transform: translateY(-1px);
+        }
+
+        .user-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .user-button:hover::before {
+            left: 100%;
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .quick-test {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .quick-test h4 {
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .quick-button {
+            background: #FFD700;
+            color: #333;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-button:hover {
+            background: #FFC107;
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔥💬 Multi-User Chat Tester</h1>
+        <p class="subtitle">Test your secure chat with multiple users instantly!</p>
+
+        <div class="instructions">
+            <h3>🎯 How to Test:</h3>
+            <ul>
+                <li>Each button opens a new chat window</li>
+                <li>Click "Join Chat" in each window</li>
+                <li>Users will appear in each other's sidebar</li>
+                <li>Click a user to start chatting</li>
+                <li>Messages are sent in real-time!</li>
+            </ul>
+        </div>
+
+        <div class="button-grid">
+            <button class="user-button" onclick="openUser('Alice')">
+                👩‍💼 Open Alice
+            </button>
+            <button class="user-button" onclick="openUser('Bob')">
+                👨‍💻 Open Bob
+            </button>
+            <button class="user-button" onclick="openUser('Charlie')">
+                👨‍🎨 Open Charlie
+            </button>
+            <button class="user-button" onclick="openUser('Diana')">
+                👩‍🔬 Open Diana
+            </button>
+        </div>
+
+        <div class="status" id="status">
+            🚀 Ready! Click any button above to create a user window.
+        </div>
+
+        <div class="quick-test">
+            <h4>⚡ Quick Test:</h4>
+            <p style="margin-bottom: 15px;">Open multiple users at once!</p>
+            <button class="quick-button" onclick="openMultiple(2)">Open 2 Users</button>
+            <button class="quick-button" onclick="openMultiple(3)">Open 3 Users</button>
+            <button class="quick-button" onclick="openMultiple(4)">Open 4 Users</button>
+        </div>
+    </div>
+
+    <script>
+        let windowCount = 0;
+        const openWindows = [];
+
+        function openUser(userName) {
+            windowCount++;
+            const url = 'http://localhost:5174';
+            const windowName = `chat_${userName}_${windowCount}_${Date.now()}`;
+            const features = 'width=1400,height=900,scrollbars=yes,resizable=yes,location=no,menubar=no,toolbar=no';
+
+            try {
+                const newWindow = window.open(url, windowName, features);
+
+                if (newWindow) {
+                    openWindows.push({ window: newWindow, name: userName });
+                    updateStatus(`🎉 Opened ${userName}'s window! Click "Join Chat" in the new window.`);
+
+                    // Focus the new window
+                    setTimeout(() => {
+                        newWindow.focus();
+                    }, 100);
+
+                    // Check if window is closed
+                    const checkClosed = setInterval(() => {
+                        if (newWindow.closed) {
+                            clearInterval(checkClosed);
+                            const index = openWindows.findIndex(w => w.window === newWindow);
+                            if (index > -1) {
+                                openWindows.splice(index, 1);
+                            }
+                            updateStatus(`👋 ${userName} left the chat.`);
+                        }
+                    }, 1000);
+                } else {
+                    updateStatus(`❌ Failed to open ${userName}'s window. Please allow popups!`);
+                }
+            } catch (error) {
+                updateStatus(`❌ Error opening window: ${error.message}`);
+            }
+        }
+
+        function openMultiple(count) {
+            const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank'];
+
+            for (let i = 0; i < count && i < names.length; i++) {
+                setTimeout(() => {
+                    openUser(names[i]);
+                }, i * 500); // Stagger the window opening
+            }
+
+            updateStatus(`🚀 Opening ${count} users... Please allow popups if prompted!`);
+        }
+
+        function updateStatus(message) {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = message;
+            statusEl.classList.add('pulse');
+
+            // Remove pulse animation after 3 seconds
+            setTimeout(() => {
+                statusEl.classList.remove('pulse');
+            }, 3000);
+
+            // Reset status after 10 seconds
+            setTimeout(() => {
+                if (openWindows.length === 0) {
+                    statusEl.innerHTML = '🚀 Ready! Click any button above to create a user window.';
+                } else {
+                    statusEl.innerHTML = `💬 ${openWindows.length} user(s) active: ${openWindows.map(w => w.name).join(', ')}`;
+                }
+            }, 10000);
+        }
+
+        // Update status with active windows count
+        setInterval(() => {
+            if (openWindows.length > 0) {
+                const activeUsers = openWindows.map(w => w.name).join(', ');
+                document.getElementById('status').innerHTML = `💬 ${openWindows.length} user(s) active: ${activeUsers}`;
+            }
+        }, 5000);
+
+        // Add some fun messages
+        const funMessages = [
+            "💡 Tip: Each window creates a unique user!",
+            "🔐 All messages are stored in Firebase Realtime Database!",
+            "⚡ Chat messages appear instantly across all windows!",
+            "🎯 Perfect for testing real-time features!",
+            "🔥 Built with React + Firebase - Lightning fast!"
+        ];
+
+        let messageIndex = 0;
+        setInterval(() => {
+            if (openWindows.length === 0) {
+                const statusEl = document.getElementById('status');
+                statusEl.innerHTML = funMessages[messageIndex];
+                messageIndex = (messageIndex + 1) % funMessages.length;
+            }
+        }, 15000);
+    </script>
+</body>
+
+</html>
